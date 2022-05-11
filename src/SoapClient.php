@@ -27,6 +27,7 @@ use Phpro\SoapClient\Type\ResultProviderInterface;
 use Phpro\SoapClient\Util\XmlFormatter;
 use Phpro\SoapClient\Wsdl\Provider\LocalWsdlProvider;
 use Phpro\SoapClient\Wsdl\Provider\WsdlProviderInterface;
+use Soap\Psr18WsseMiddleware\WsaMiddleware2005;
 
 /**
  * Class SoapClient.
@@ -144,7 +145,7 @@ class SoapClient
     /**
      * Adds middleware to the handler.
      */
-    protected function addMiddleware()
+    public function addMiddleware()
     {
         foreach ($this->middlewares as $middleware) {
             $this->handler->addMiddleware($middleware);
@@ -243,6 +244,18 @@ class SoapClient
     {
         $this->middlewares = array_merge_recursive($this->middlewares, [
             'wsa' => new WsaMiddleware(),
+        ]);
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function withWsa2005()
+    {
+        $this->middlewares = array_merge_recursive($this->middlewares, [
+            new WsaMiddleware2005(),
         ]);
 
         return $this;

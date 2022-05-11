@@ -56,6 +56,21 @@ class SoapClientTest extends TestCase
         self::assertTrue($response->ok());
     }
 
+    public function testWsseWithWsa2005Call()
+    {
+        Soap::fake();
+        $client = Soap::baseWsdl('https://laravel-soap.wsdl')->withWsse([
+            'userTokenName' => 'Test',
+            'userTokenPassword' => 'passwordTest',
+            'mustUnderstand' => false,
+        ])->withWsa2005();
+        $response = $client->Get_User();
+        $lastRequestInfo = $client->getEngine()->collectLastRequestInfo();
+        self::assertStringNotContainsString('mustUnderstand', $lastRequestInfo->getLastRequest());
+//        dd($client->debugLastSoapRequest());
+        self::assertTrue($response->ok());
+    }
+
     public function testArrayAccessResponse()
     {
         Soap::fakeSequence()->push('test');
