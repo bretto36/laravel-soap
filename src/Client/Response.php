@@ -53,7 +53,7 @@ class Response implements ResultInterface, ArrayAccess
      */
     public static function fromSoapResponse($result, $status = 200)
     {
-        return new self(new Psr7Response($status, [], json_encode($result)));
+        return new self(new Psr7Response($status, [], json_encode($result, JSON_INVALID_UTF8_IGNORE)));
     }
 
     /**

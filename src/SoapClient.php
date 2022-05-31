@@ -250,18 +250,6 @@ class SoapClient
     }
 
     /**
-     * @return $this
-     */
-    public function withWsa2005()
-    {
-        $this->middlewares = array_merge_recursive($this->middlewares, [
-            new WsaMiddleware2005(),
-        ]);
-
-        return $this;
-    }
-
-    /**
      * @param $options
      * @return $this
      */
