@@ -12,6 +12,7 @@ Laravel SOAP Version | Laravel Support
 -------- | ------------------
 1.x | 5.6, 6.x, 7x
 2.x | 8.x
+Added UTF8
 
 <a name="installation"></a>
 ## Installation
